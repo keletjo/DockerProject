@@ -1,0 +1,39 @@
+version: '3'
+services:
+  prometheus:
+    build:
+      context: .
+      dockerfile: Dockerfile.prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+  grafana:
+    build:
+      context: .
+      dockerfile: Dockerfile.grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=Simple@123
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+      - GF_DEFAULT_INSTANCE_NAME=My Default Prometheus
+      - GF_DEFAULT_DATA_SOURCE_NAME=Prometheus
+      - GF_DEFAULT_DATA_SOURCE_TYPE=prometheus
+      - GF_DEFAULT_DATA_SOURCE_ACCESS=proxy
+      - GF_DEFAULT_SOURCE_URL=http://prometheus:9090
+    depends_on:
+      - prometheus
+    restart: always
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+FROM grafana/grafana
+# Expose the default Grafana port
+EXPOSE 3000
+# Copy custom Grafana configuration files if needed
+# COPY custom.ini /etc/grafana/custom.ini
+# Specify the default command to run Grafana
+CMD ["--config=/etc/grafana/grafana.ini"]
